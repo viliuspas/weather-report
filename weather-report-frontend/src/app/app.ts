@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { DashboardPage } from "./pages/dashboard-page/dashboard-page.component";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
-  templateUrl: './app.html',
-  styleUrl: './app.scss'
+  imports: [DashboardPage],
+  styleUrl: './app.scss',
+  template: '<app-dashboard-page />'
 })
 export class App {
   protected title = 'weather-report-frontend';
