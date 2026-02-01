@@ -53,21 +53,21 @@
                 </div>
             </div>
             <div class="overflow-x-scroll">
-                <table class="text-center">
+                <table class="text-center w-100">
                     <thead>
                         @for (item of dailyForecast(); track $index) {
-                            <th class="py-2 px-3">{{ item.forecastTimeUtc | dateTime: 'hh:mm' }}</th>
+                            <th class="t-cell py-2 px-3">{{ item.forecastTimeUtc | dateTime: 'hh:mm' }}</th>
                         }
                     </thead>
                     <tbody>
                         <tr>
                             @for (item of dailyForecast(); track $index) {
-                                <td class="p-2">{{ item.airTemperature }}°C</td>
+                                <td class="t-cell">{{ item.airTemperature }}°C</td>
                             }
                         </tr>
                         <tr>
                             @for (item of dailyForecast(); track $index) {
-                                <td class="p-2">
+                                <td class="t-cell">
                                     <div class="d-flex flex-row align-items-center justify-content-center">
                                         <app-icon [type]="conditionCodeToIconType(item.conditionCode)" />
                                     </div>
@@ -76,10 +76,10 @@
                         </tr>
                         <tr>
                             @for (item of dailyForecast(); track $index) {
-                                <td class="p-2">
+                                <td class="t-cell">
                                     <div class="gap-1 d-flex flex-row align-items-center justify-content-center">
                                         <app-icon [type]="IconType.DROPLET"/>
-                                        <span>{{ item.totalPrecipitation }}%</span>
+                                        <span class="nowrap">{{ item.totalPrecipitation }} mm</span>
                                     </div>
                                 </td>
                             }
