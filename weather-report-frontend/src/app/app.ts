@@ -5,7 +5,7 @@ import { DashboardPage } from "./pages/dashboard-page/dashboard-page.component";
   selector: 'app-root',
   imports: [DashboardPage],
   styleUrl: './app.scss',
-  template: '<app-dashboard-page />'
+  templateUrl: './app.html'
 })
 export class App {
   protected title = 'weather-report-frontend';

@@ -1,0 +1,21 @@
+<div class="dropdown d-inline-block">
+    <button class="btn btn-secondary dropdown-toggle"
+            type="button"
+            id="dropdownMenu"
+            (click)="toggleMenu()"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false">
+        Select area
+    </button>
+    <div class="dropdown-menu"
+        [class]="isMenuOpen() ? 'd-block' : 'd-none'"
+        aria-labelledby="dropdownMenu">
+        @if (searchable()) {
+            <input class="form-control mb-1" placeholder="Search..."/>
+        }
+        @for(item of items(); track item) {
+            <button class="dropdown-item" type="button">{{ item }}</button>
+        }
+    </div>
+</div>

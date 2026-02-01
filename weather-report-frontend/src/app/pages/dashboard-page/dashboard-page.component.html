@@ -1,11 +1,7 @@
-<header>
-    Weather Report
-</header>
-<main>
-    @for(place of places(); track place.name) {
-        <li>{{ place.name }}</li>
-    }
-</main>
-<footer>
-    2026
-</footer>
+<div class="flex-container text-center main-container">
+    <div class="">
+        <h1>Weather Report</h1>
+    </div>
+    <app-dropdown [searchable]="true" [items]="getPlaceNames()" />
+    
+</div>
