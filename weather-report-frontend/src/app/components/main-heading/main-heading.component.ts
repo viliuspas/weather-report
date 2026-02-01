@@ -33,4 +33,8 @@ export class MainHeadingComoponent implements OnInit {
     handleDropdownClick(value: DropdownItem): void {
         this.meteoService.loadPlace(value.id);
     }
+
+    handleHeadingClick(): void {
+        this.meteoService.setPlace(undefined);
+    }
 }

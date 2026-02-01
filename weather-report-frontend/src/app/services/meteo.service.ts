@@ -34,6 +34,10 @@ export class MeteoService {
         return this.isPlaceLoadingBehaviorSubject.asObservable();
     }
 
+    public setPlace(place: PlaceInfo | undefined): void {
+        this.placeBehaviorSubject.next(place);
+    }
+
     public loadPlaces(): void {
         this.isPlacesLoadingBehaviorSubject.next(true);
         this.http
