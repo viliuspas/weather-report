@@ -1,12 +1,36 @@
-<div class="flex-container text-center main-container gap-3">
-    <div class="">
-        <h1>Weather Report</h1>
+<div class="flex-container main-container">
+    <div class="content-container text-center input-container">
+        <div>
+            <h1>Weather Report</h1>
+        </div>
+        <app-dropdown
+            [searchable]="true"
+            [items]="dropdownItems()"
+            [placeholder]="'Search for location...'"
+            (onClick)="handleDropdownClick($event)"
+        />
     </div>
-    <app-dropdown
-        [searchable]="true"
-        [items]="dropdownItems()"
-        [placeholder]="'Search for location...'"
-        (onClick)="handleDropdownClick($event)"
-    />
-    
+
+    <div class="flex-container forecast-container bg-dark d-block">
+        <hr class="m-0"/>
+        <div class="flex-container forecast-container p-3">
+            sup
+        </div>
+        <hr class="m-0"/>
+    </div>
+
+
+    <div class="content-container">
+        <div class="d-flex flex-row text-center cards-container">
+            <button class="card">
+                Vilnius
+            </button>
+            <button class="card">
+                Vilnius
+            </button>
+            <button class="card">
+                Vilnius
+            </button>
+        </div>
+    </div>
 </div>

@@ -12,7 +12,7 @@ export interface DropdownItem {
     styleUrl: './dropdown.component.scss',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Dropdown {
+export class DropdownComponent {
     searchable: InputSignal<boolean> = input.required<boolean>();
     items: InputSignal<DropdownItem[]> = input<DropdownItem[]>([]);
     placeholder: InputSignal<string> = input<string>('');
