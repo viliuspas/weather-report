@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy, Component, computed, input, InputSignal, OnIni
 export interface DropdownItem {
     id: string;
     value: string;
+    subvalue?: string;
 }
 
 @Component({

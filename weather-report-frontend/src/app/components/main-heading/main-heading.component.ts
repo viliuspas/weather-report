@@ -25,7 +25,8 @@ export class MainHeadingComoponent implements OnInit {
         return this.places()?.map(place => {
             return {
                 id: place.code,
-                value: place.name
+                value: place.name,
+                subvalue: place.administrativeDivision
             } as DropdownItem;
         }) ?? [];
     }

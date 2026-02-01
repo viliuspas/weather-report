@@ -35,7 +35,12 @@
                 class="btn btn-secondary dropdown-item"
                 type="button"
                 (click)="onItemClick(item)">
-                {{ item.value }}
+                <div class="d-flex flex-column flex-sm-row">
+                    <span>
+                        {{ item.value }}
+                    </span>
+                    <span class="ms-sm-auto text-secondary small"> {{ item.subvalue }} </span>
+                </div>
             </button>
         }
     </div>
