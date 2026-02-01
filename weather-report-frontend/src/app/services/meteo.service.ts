@@ -2,6 +2,7 @@ import { inject, Injectable } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
 import { Place } from "../models/place";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import { PlaceInfo } from "../models/placeInfo";
 
 @Injectable({
     providedIn: 'root'
@@ -14,7 +15,7 @@ export class MeteoService {
     private placesBehaviorSubject: BehaviorSubject<Place[] | undefined> = new BehaviorSubject<Place[] | undefined>(undefined);
     private isPlacesLoadingBehaviorSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-    private placeBehaviorSubject: BehaviorSubject<Place | undefined> = new BehaviorSubject<Place | undefined>(undefined);
+    private placeBehaviorSubject: BehaviorSubject<PlaceInfo | undefined> = new BehaviorSubject<PlaceInfo | undefined>(undefined);
     private isPlaceLoadingBehaviorSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
     get places$(): Observable<Place[] | undefined> {
@@ -25,7 +26,7 @@ export class MeteoService {
         return this.isPlacesLoadingBehaviorSubject.asObservable();
     }
 
-    get place$(): Observable<Place | undefined> {
+    get place$(): Observable<PlaceInfo | undefined> {
         return this.placeBehaviorSubject.asObservable();
     }
 
@@ -52,9 +53,9 @@ export class MeteoService {
 
     public loadPlace(placeCode: string): void {
         this.http
-            .get<Place>(this.API_BASE_PATH + `/places/${placeCode}`)
+            .get<PlaceInfo>(this.API_BASE_PATH + `/places/${placeCode}`)
             .subscribe({
-                next: (place: Place) => {
+                next: (place: PlaceInfo) => {
                     this.placeBehaviorSubject.next(place);
                 },
                 error: (err: HttpErrorResponse) => {

@@ -3,7 +3,7 @@
         <app-main-heading />
     </div>
 
-    <div class="flex-container h-100 bg-dark">
+    <div class="flex-container h-100 bg-dark" [class]="currentPlace() ? 'd-flex' : 'd-none'">
         <app-forecast class="h-100"/>
     </div>
     

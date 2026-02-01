@@ -17,9 +17,6 @@ export class MainHeadingComoponent implements OnInit {
     places: Signal<Place[] | undefined> = toSignal(this.meteoService.places$, { initialValue: undefined });
     isPlacesLoading: Signal<boolean> = toSignal(this.meteoService.isPlacesLoading$, { initialValue: false });
 
-    currentPlace: Signal<Place | undefined> = toSignal(this.meteoService.place$, { initialValue: undefined });
-    isCurrentPlaceLoading: Signal<boolean> = toSignal(this.meteoService.isPlaceLoading$, { initialValue: false });
-
     ngOnInit(): void {
         this.meteoService.loadPlaces();
     }
@@ -34,6 +31,6 @@ export class MainHeadingComoponent implements OnInit {
     }
 
     handleDropdownClick(value: DropdownItem): void {
-        console.log(value);
+        this.meteoService.loadPlace(value.id);
     }
 }
