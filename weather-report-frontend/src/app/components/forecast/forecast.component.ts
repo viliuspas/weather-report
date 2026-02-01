@@ -44,4 +44,45 @@ export class ForecastComponent {
     handleNextDay(): void {
         this.selectedDay.set(this.selectedDay() + 1);
     }
+
+    conditionCodeToIconType(forecast: string): IconType {
+        switch (forecast) {
+            case 'clear':
+                return IconType.SUN;
+            case 'partly-cloudy':
+                return IconType.CLOUDY;
+            case 'cloudy-with-sunny-intervals':
+                return IconType.CLOUD_SUN;
+            case 'cloudy':
+                return IconType.CLOUDS;
+            case 'light-rain':
+                return IconType.CLOUD_DRIZZLE;
+            case 'rain':
+                return IconType.CLOUD_RAIN;
+            case 'heavy-rain':
+                return IconType.CLOUD_RAIN_HEAVY;
+            case 'thunder':
+                return IconType.CLOUD_LIGHTNING;
+            case 'isolated-thunderstorms':
+                return IconType.LIGHTNING;
+            case 'thunderstorms':
+            case 'heavy-rain-with-thunderstorms':
+                return IconType.CLOUD_LIGHTNING_RAIN;
+            case 'light-sleet':
+            case 'sleet':
+            case 'freezing-rain':
+                return IconType.CLOUD_SLEET;
+            case 'hail':
+                return IconType.CLOUD_HAIL;
+            case 'light-snow':
+                return IconType.CLOUD_SNOW;
+            case 'snow':
+            case 'heavy-snow':
+                return IconType.SNOW;
+            case 'fog':
+                return IconType.CLOUD_FOG;
+            default:
+                return IconType.SUN;
+        }
+    }
 }
