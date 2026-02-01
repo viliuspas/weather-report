@@ -3,7 +3,6 @@ import { MainHeadingComoponent } from "../../components/main-heading/main-headin
 import { ForecastComponent } from "../../components/forecast/forecast.component";
 import { QuickAccessComponent } from "../../components/quick-access/quick-access.component";
 import { toSignal } from '@angular/core/rxjs-interop';
-import { Place } from '../../models/place';
 import { MeteoService } from '../../services/meteo.service';
 import { PlaceInfo } from '../../models/placeInfo';
 
