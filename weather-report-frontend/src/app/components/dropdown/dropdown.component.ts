@@ -29,6 +29,7 @@ export class Dropdown {
     onValueChange(value: string): void {
         if (value === '') {
             this.isMenuOpen.set(false);
+            this.filteredItems = computed(() => [...this.items()]);
             return;
         }
 
