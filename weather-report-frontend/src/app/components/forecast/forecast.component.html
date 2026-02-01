@@ -1,5 +1,33 @@
-<hr class="m-0"/>
-<div class="flex-container h-100 p-3">
-    {{ currentPlace()?.place?.name }}
-</div>
-<hr class="m-0 mt-auto"/>
+@let place = currentPlace();
+
+@if (place) {
+    <hr class="m-0"/>
+    <div class="content-container h-100 p-3">
+        <div class="d-flex flex-row">
+            <div class="heading-container card">
+                <h2>{{ place.place.name }}</h2>
+                <div class="flex-container">
+                    <span class="current-temp fs-2">
+                        {{ place.forecastTimestamps[0].airTemperature }}°C
+                    </span>
+                    <span class="feels-like-temp">
+                        Feels like {{ place.forecastTimestamps[0].feelsLikeTemperature }}°C
+                    </span>
+                    
+                </div>
+            </div>
+
+            <div class="flex-container p-3 justify-content-center">
+                <div class="info-row">
+                    <span>Wind speed {{ place.forecastTimestamps[0].windSpeed }} m/s</span>
+                    <app-icon [type]="IconType.ARROW_UP" [rotate]="place.forecastTimestamps[0].windDirection"/>
+                </div>
+                <div class="info-row">
+                    <span>Humidity {{ place.forecastTimestamps[0].relativeHumidity }}%</span>
+                    <app-icon [type]="IconType.DROPLET_HALF"/>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr class="m-0 mt-auto"/>
+}

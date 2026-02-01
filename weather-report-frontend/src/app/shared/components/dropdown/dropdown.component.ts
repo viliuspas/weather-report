@@ -22,7 +22,6 @@ export class DropdownComponent {
     isMenuOpen: WritableSignal<boolean> = signal(false);
 
     toggleMenu(): void {
-        
         this.isMenuOpen.set(!this.isMenuOpen());
     }
 
@@ -41,5 +40,6 @@ export class DropdownComponent {
 
     onItemClick(value: DropdownItem) {
         this.onClick.emit(value);
+        this.toggleMenu();
     }
 }
