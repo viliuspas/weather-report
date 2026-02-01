@@ -33,3 +33,9 @@ app-root {
     padding: 1rem;
     gap: 1rem;
 }
+
+@media screen and (width < 768px) {
+    .content-container {
+        padding-inline: 0.5rem;
+    }
+}

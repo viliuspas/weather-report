@@ -3,10 +3,11 @@ import { MeteoService } from "../../services/meteo.service";
 import { toSignal } from "@angular/core/rxjs-interop";
 import { PlaceInfo } from "../../models/placeInfo";
 import { IconComponent, IconType } from "../../shared/components/icon/icon.component";
+import { ConditionCodePipe } from "../../shared/pipes/condition-code.pipe";
 
 @Component({
     selector: 'app-forecast',
-    imports: [IconComponent],
+    imports: [IconComponent, ConditionCodePipe],
     templateUrl: './forecast.component.html',
     styleUrl: './forecast.component.scss',
     changeDetection: ChangeDetectionStrategy.OnPush,
