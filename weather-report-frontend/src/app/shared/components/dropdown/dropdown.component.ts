@@ -35,7 +35,10 @@ export class DropdownComponent {
 
         this.isMenuOpen.set(true);
         this.filteredItems = computed(() =>
-            this.items().filter(item => item.value.toLowerCase().includes(value.toLowerCase()))
+            this.items().filter(item => 
+                item.value.toLowerCase().includes(value.toLowerCase()) ||
+                item.subvalue?.toLowerCase().includes(value.toLowerCase())
+            )
         );
     }
 
