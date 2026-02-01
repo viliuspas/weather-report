@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, inject, Signal, computed } from "@angular/core";
+import { Component, ChangeDetectionStrategy, inject, Signal, computed, WritableSignal, signal } from "@angular/core";
 import { MeteoService } from "../../services/meteo.service";
 import { toSignal } from "@angular/core/rxjs-interop";
 import { PlaceInfo } from "../../models/placeInfo";
@@ -19,7 +19,29 @@ export class ForecastComponent {
 
     currentPlace: Signal<PlaceInfo | undefined> = toSignal(this.meteoService.place$, { initialValue: undefined });
     isCurrentPlaceLoading: Signal<boolean> = toSignal(this.meteoService.isPlaceLoading$, { initialValue: false });
-    limitedForecast: Signal<ForecastTimestamp[]> = computed(() => this.currentPlace()?.forecastTimestamps.slice(0, 24) ?? []);
+    selectedDay: WritableSignal<number> = signal(0);
+
+    dailyForecast: Signal<ForecastTimestamp[]> = computed(() => {
+        const today: number = new Date().getDay();
+        const targetDay = (today + this.selectedDay()) % 7;
+
+        if (this.selectedDay() === 0) {
+            return this.currentPlace()?.forecastTimestamps.slice(0, 24) ?? [];
+        }
+
+        return this.currentPlace()?.forecastTimestamps.filter(timestamp => {
+            const forecastDay: number = new Date(timestamp.forecastTimeUtc).getDay();
+            return forecastDay === targetDay;
+        }) ?? [];
+    });
 
     IconType = IconType;
+
+    handlePrevDay(): void {
+        this.selectedDay.set(this.selectedDay() - 1);
+    }
+
+    handleNextDay(): void {
+        this.selectedDay.set(this.selectedDay() + 1);
+    }
 }

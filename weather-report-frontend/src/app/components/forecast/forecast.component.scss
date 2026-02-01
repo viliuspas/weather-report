@@ -13,3 +13,11 @@
     align-items: center;
     gap: 0.5rem;
 }
+
+.nav-button {
+    padding: 0.25rem 0.5rem;
+
+    &.disabled {
+        border: 0;
+    }
+}

@@ -3,7 +3,8 @@ import { ChangeDetectionStrategy, Component, input, InputSignal } from "@angular
 export enum IconType {
     ARROW_UP = 'arrow-up',
     DROPLET_HALF = 'droplet-half',
-    DROPLET = 'droplet'
+    DROPLET = 'droplet',
+    CHEVRON_RIGHT = 'chevron-right'
 }
 
 @Component({
