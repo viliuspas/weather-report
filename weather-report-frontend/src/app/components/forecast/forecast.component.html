@@ -3,27 +3,30 @@
 @if (place) {
     <hr class="m-0"/>
     <div class="content-container h-100 p-3">
-        <div class="d-flex flex-row">
+        <div class="d-flex flex-column flex-sm-row align-items-center">
             <div class="heading-container card">
                 <h2>{{ place.place.name }}</h2>
                 <div class="flex-container">
-                    <span class="current-temp fs-2">
+                    <span class="fs-2">
                         {{ place.forecastTimestamps[0].airTemperature }}°C
                     </span>
-                    <span class="feels-like-temp">
+                    <span class="small">
                         Feels like {{ place.forecastTimestamps[0].feelsLikeTemperature }}°C
                     </span>
                     
                 </div>
             </div>
 
-            <div class="flex-container p-3 justify-content-center">
+            <div class="d-flex flex-row flex-sm-column p-1 p-sm-3 justify-content-center">
                 <div class="info-row">
-                    <span>Wind speed {{ place.forecastTimestamps[0].windSpeed }} m/s</span>
+                    <span class="d-none d-sm-inline-flex">Wind speed </span>
+                    <span>{{ place.forecastTimestamps[0].windSpeed }} m/s</span>
                     <app-icon [type]="IconType.ARROW_UP" [rotate]="place.forecastTimestamps[0].windDirection"/>
                 </div>
+                <span class="d-inline-flex d-sm-none mx-3">•</span>
                 <div class="info-row">
-                    <span>Humidity {{ place.forecastTimestamps[0].relativeHumidity }}%</span>
+                    <span class="d-none d-sm-inline-flex">Humidity </span>
+                    <span>{{ place.forecastTimestamps[0].relativeHumidity }}%</span>
                     <app-icon [type]="IconType.DROPLET_HALF"/>
                 </div>
             </div>
