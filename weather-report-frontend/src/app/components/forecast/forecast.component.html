@@ -29,7 +29,7 @@
                 <div class="info-row">
                     <span class="d-none d-sm-inline-flex">Wind speed </span>
                     <span>{{ place.forecastTimestamps[0].windSpeed }} m/s</span>
-                    <app-icon [type]="IconType.ARROW_UP" [rotate]="place.forecastTimestamps[0].windDirection"/>
+                    <app-icon [type]="IconType.ARROW_UP" [rotate]="180 + place.forecastTimestamps[0].windDirection"/>
                 </div>
                 <span class="d-inline-flex d-sm-none mx-3">•</span>
                 <div class="info-row">
