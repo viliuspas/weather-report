@@ -1,0 +1,9 @@
+<div>
+    <h1>Weather Report</h1>
+</div>
+<app-dropdown
+    [searchable]="true"
+    [items]="dropdownItems()"
+    [placeholder]="'Search for location...'"
+    (onClick)="handleDropdownClick($event)"
+/>
