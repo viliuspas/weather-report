@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, inject, OnInit, signal, Signal } fr
 import { MeteoService } from '../../services/meteo.service';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Place } from '../../models/place';
-import { DropdownComponent, DropdownItem } from "../../components/dropdown/dropdown.component";
+import { DropdownComponent, DropdownItem } from "../../shared/components/dropdown/dropdown.component";
 
 @Component({
     selector: 'app-dashboard-page',
