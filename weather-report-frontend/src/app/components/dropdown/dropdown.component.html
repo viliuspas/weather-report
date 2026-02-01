@@ -27,6 +27,9 @@
     <div class="dropdown-menu mt-1"
         [class]="isMenuOpen() ? 'd-block' : 'd-none'"
         aria-labelledby="dropdownMenu">
+        @if (filteredItems().length === 0) {
+            <span class="dropdown-item-text text-secondary">No items</span>
+        }
         @for(item of filteredItems(); track item) {
             <button
                 class="dropdown-item"
