@@ -30,7 +30,7 @@ export class ForecastComponent {
         }
 
         return this.currentPlace()?.forecastTimestamps.filter(timestamp => {
-            const forecastDay: number = new Date(timestamp.forecastTimeUtc).getDay();
+            const forecastDay: number = new Date(timestamp.forecastTimeUtc + 'Z').getDay();
             return forecastDay === targetDay;
         }) ?? [];
     });

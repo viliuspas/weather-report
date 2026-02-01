@@ -7,7 +7,7 @@ export class DateTimePipe implements PipeTransform {
     private months: string[] = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
     transform(value: string, format: string) {
-        const date = new Date(value);
+        const date = new Date(value + 'Z');
         const hours = date.getHours().toString().padStart(2, '0');
         const minutes = date.getMinutes().toString().padStart(2, '0');
         const month = this.months[date.getMonth()];
