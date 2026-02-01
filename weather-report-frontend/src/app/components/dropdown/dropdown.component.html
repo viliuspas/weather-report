@@ -1,21 +1,39 @@
 <div class="dropdown d-inline-block">
-    <button class="btn btn-secondary dropdown-toggle"
-            type="button"
-            id="dropdownMenu"
-            (click)="toggleMenu()"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false">
-        Select area
-    </button>
-    <div class="dropdown-menu"
+    @if (searchable()) {
+        <div class="btn-group">
+            <input
+                class="form-control border-0 rounded-end-0"
+                (input)="onValueChange($event.target.value)"
+                placeholder="{{ placeholder() }}"/>
+            <button type="button"
+                    class="btn btn-lg btn-secondary dropdown-toggle dropdown-toggle-split"
+                    (click)="toggleMenu()"
+                    data-bs-toggle="dropdown"
+                    [attr.aria-expanded]="isMenuOpen()">
+                <span class="visually-hidden">Toggle Dropdown</span>
+            </button>
+        </div>
+    } @else {
+        <button class="btn btn-secondary dropdown-toggle"
+                type="button"
+                id="dropdownMenu"
+                (click)="toggleMenu()"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false">
+            {{ placeholder() }}
+        </button>
+    }
+    <div class="dropdown-menu mt-1"
         [class]="isMenuOpen() ? 'd-block' : 'd-none'"
         aria-labelledby="dropdownMenu">
-        @if (searchable()) {
-            <input class="form-control mb-1" placeholder="Search..."/>
-        }
-        @for(item of items(); track item) {
-            <button class="dropdown-item" type="button">{{ item }}</button>
+        @for(item of filteredItems(); track item) {
+            <button
+                class="dropdown-item"
+                type="button"
+                (click)="onItemClick(item)">
+                {{ item }}
+            </button>
         }
     </div>
 </div>

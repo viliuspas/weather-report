@@ -1,7 +1,12 @@
-<div class="flex-container text-center main-container">
+<div class="flex-container text-center main-container gap-3">
     <div class="">
         <h1>Weather Report</h1>
     </div>
-    <app-dropdown [searchable]="true" [items]="getPlaceNames()" />
+    <app-dropdown
+        [searchable]="true"
+        [items]="getPlaceNames()"
+        [placeholder]="'Search for location...'"
+        (onClick)="handleDropdownClick($event)"
+    />
     
 </div>

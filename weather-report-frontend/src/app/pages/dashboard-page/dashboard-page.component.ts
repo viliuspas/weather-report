@@ -27,4 +27,8 @@ export class DashboardPage implements OnInit {
     getPlaceNames(): string[] {
         return this.places()?.map(place => place.name) ?? [];
     }
+
+    handleDropdownClick(value: string): void {
+        console.log(value);
+    }
 }
