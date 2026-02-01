@@ -1,5 +1,10 @@
 import { ChangeDetectionStrategy, Component, computed, input, InputSignal, OnInit, output, OutputEmitterRef, signal, WritableSignal } from "@angular/core";
 
+export interface DropdownItem {
+    id: string;
+    value: string;
+}
+
 @Component({
     selector: 'app-dropdown',
     imports: [],
@@ -7,20 +12,17 @@ import { ChangeDetectionStrategy, Component, computed, input, InputSignal, OnIni
     styleUrl: './dropdown.component.scss',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Dropdown implements OnInit {
+export class Dropdown {
     searchable: InputSignal<boolean> = input.required<boolean>();
-    items: InputSignal<string[]> = input<string[]>([]);
+    items: InputSignal<DropdownItem[]> = input<DropdownItem[]>([]);
     placeholder: InputSignal<string> = input<string>('');
-    onClick: OutputEmitterRef<string> = output<string>();
+    onClick: OutputEmitterRef<DropdownItem> = output<DropdownItem>();
 
-    filteredItems: WritableSignal<string[]> = signal([]);
+    filteredItems = computed(() => [...this.items()]);
     isMenuOpen: WritableSignal<boolean> = signal(false);
 
-    ngOnInit(): void {
-        this.filteredItems.set(this.items());
-    }
-
     toggleMenu(): void {
+        
         this.isMenuOpen.set(!this.isMenuOpen());
     }
 
@@ -31,12 +33,12 @@ export class Dropdown implements OnInit {
         }
 
         this.isMenuOpen.set(true);
-        this.filteredItems.set(
-            this.items().filter(item => item.toLowerCase().includes(value.toLowerCase()))
+        this.filteredItems = computed(() =>
+            this.items().filter(item => item.value.toLowerCase().includes(value.toLowerCase()))
         );
     }
 
-    onItemClick(value: string) {
+    onItemClick(value: DropdownItem) {
         this.onClick.emit(value);
     }
 }

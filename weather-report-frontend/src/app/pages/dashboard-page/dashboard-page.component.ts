@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, inject, OnInit, Signal } from '@ang
 import { MeteoService } from '../../services/meteo.service';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Place } from '../../models/place';
-import { Dropdown } from "../../components/dropdown/dropdown.component";
+import { Dropdown, DropdownItem } from "../../components/dropdown/dropdown.component";
 
 @Component({
     selector: 'app-dashboard-page',
@@ -24,11 +24,16 @@ export class DashboardPage implements OnInit {
         this.meteoService.loadPlaces();
     }
 
-    getPlaceNames(): string[] {
-        return this.places()?.map(place => place.name) ?? [];
+    dropdownItems(): DropdownItem[] {
+        return this.places()?.map(place => {
+            return {
+                id: place.code,
+                value: place.name
+            } as DropdownItem;
+        }) ?? [];
     }
 
-    handleDropdownClick(value: string): void {
+    handleDropdownClick(value: DropdownItem): void {
         console.log(value);
     }
 }

@@ -4,7 +4,7 @@
     </div>
     <app-dropdown
         [searchable]="true"
-        [items]="getPlaceNames()"
+        [items]="dropdownItems()"
         [placeholder]="'Search for location...'"
         (onClick)="handleDropdownClick($event)"
     />
