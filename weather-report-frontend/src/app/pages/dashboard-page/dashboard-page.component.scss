@@ -9,3 +9,9 @@
     transition-duration: 1s;
     transition-timing-function: ease;
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .height-transition {
+    transition: none;
+  }
+}

@@ -11,6 +11,12 @@
     }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .opacity-transition {
+    animation: none;
+  }
+}
+
 .heading-container {
     display: inline-flex;
     flex-direction: row;
