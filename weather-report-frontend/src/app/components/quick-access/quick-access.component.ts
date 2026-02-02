@@ -1,12 +1,13 @@
-import { Component, ChangeDetectionStrategy, inject, WritableSignal, signal, OnInit, Signal } from "@angular/core";
+import { Component, ChangeDetectionStrategy, inject, OnInit, Signal } from "@angular/core";
 import { ActivityService } from "../../services/activity.service";
 import { PlaceInfo } from "../../models/placeInfo";
 import { MeteoService } from "../../services/meteo.service";
 import { toSignal } from "@angular/core/rxjs-interop";
+import { IconType, IconComponent } from "../../shared/components/icon/icon.component";
 
 @Component({
     selector: 'app-quick-access',
-    imports: [],
+    imports: [IconComponent],
     templateUrl: './quick-access.component.html',
     styleUrl: './quick-access.component.scss',
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -17,6 +18,8 @@ export class QuickAccessComponent implements OnInit {
 
     quickAccessPlaces: Signal<PlaceInfo[] | undefined> = toSignal(this.meteoService.topPlace$, { initialValue: [] });
     isQuickAccessPlacesLoading: Signal<boolean> = toSignal(this.meteoService.isTopPlaceLoading$, { initialValue: false });
+
+    currentPlace: Signal<PlaceInfo | undefined> = toSignal(this.meteoService.currentPlace$, { initialValue: undefined });
 
     private placeholderPlaceIds: string[] = ['klaipėda', 'kaunas', 'vilnius'];
 
@@ -32,6 +35,10 @@ export class QuickAccessComponent implements OnInit {
         this.meteoService.setPlace(place);
         this.activityService.trackClick(place.place.code);
         this.loadTopPlaces();
+    }
+
+    conditionCodeToIconType(conditionCode: string): IconType {
+        return this.meteoService.getConditionCodeByIconType(conditionCode);
     }
 
     private loadTopPlaces(): void {

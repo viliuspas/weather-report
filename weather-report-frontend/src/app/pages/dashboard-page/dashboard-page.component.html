@@ -7,7 +7,7 @@
         <app-forecast class="h-100"/>
     </div>
     
-    <div class="content-container">
+    <div class="content-container" [class]="currentPlace() ? 'overflow-y-scroll-sm' : ''">
         <app-quick-access />
     </div>
 </div>

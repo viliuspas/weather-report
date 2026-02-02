@@ -1,7 +1,14 @@
-<div class="d-flex flex-row text-center cards-container">
+<div class="d-flex flex-column flex-sm-row text-center cards-container">
     @for (place of quickAccessPlaces(); track place) {
-        <button class="btn btn-secondary card" (click)="handleQuickAccessClick(place)">
-            {{ place.place.name }}
+        <button class="btn btn-secondary card d-flex flex-row gap-2" (click)="handleQuickAccessClick(place)">
+            <div class="flex-container text-start">
+                <span>{{ place.place.name }}</span>
+                <span class="small text-secondary">{{ place.place.administrativeDivision }}</span>
+            </div>
+            <div class="ms-auto flex-container align-items-end gap-1">
+                <span class="small">{{ place.forecastTimestamps[0].airTemperature }}°C</span>
+                <app-icon [type]="conditionCodeToIconType(place.forecastTimestamps[0].conditionCode)" />
+            </div>
         </button>
     }
 </div>

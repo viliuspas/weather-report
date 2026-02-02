@@ -11,7 +11,13 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .height-transition {
-    transition: none;
-  }
+    .height-transition {
+        transition: none;
+    }
+}
+
+@media screen and (width < 576px) {
+    .overflow-y-scroll-sm {
+        overflow-y: scroll;
+    }
 }
