@@ -35,6 +35,7 @@ export class MainHeadingComoponent implements OnInit {
 
     handleDropdownClick(value: DropdownItem): void {
         this.meteoService.loadPlace(value.id);
+        this.meteoService.postViewedPlace(value.id);
         this.activityService.trackClick(value.id);
     }
 

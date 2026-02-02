@@ -114,6 +114,17 @@ export class MeteoService {
         });
     }
 
+    public postViewedPlace(placeCode: string): void {
+        const body = { code: placeCode };
+        this.http
+            .post(this.API_BASE_PATH + `/places/viewed`, body)
+            .subscribe({
+                error: (err: HttpErrorResponse) => {
+                    console.log(`Error posting viewed place: ${err.error}, ${err.message}`);
+                }
+            });
+    }
+
     public getConditionCodeByIconType(forecast: string): IconType {
         switch (forecast) {
             case 'clear':

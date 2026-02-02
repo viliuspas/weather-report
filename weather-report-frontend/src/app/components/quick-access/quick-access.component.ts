@@ -33,6 +33,7 @@ export class QuickAccessComponent implements OnInit {
 
     handleQuickAccessClick(place: PlaceInfo): void {
         this.meteoService.setPlace(place);
+        this.meteoService.postViewedPlace(place.place.code);
         this.activityService.trackClick(place.place.code);
         this.loadTopPlaces();
     }
