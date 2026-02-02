@@ -18,6 +18,7 @@ export class DropdownComponent {
     items: InputSignal<DropdownItem[]> = input<DropdownItem[]>([]);
     placeholder: InputSignal<string> = input<string>('');
     size: InputSignal<'small' | 'default' | 'large'> = input<'small' | 'default' | 'large'>('default');
+    isLoading: InputSignal<boolean> = input<boolean>(false);
     onClick: OutputEmitterRef<DropdownItem> = output<DropdownItem>();
 
     filteredItems = computed(() => [...this.items()]);

@@ -29,21 +29,29 @@
     <div class="dropdown-menu mt-1"
         [class]="isMenuOpen() ? 'd-block' : 'd-none'"
         aria-labelledby="dropdownMenu">
-        @if (filteredItems().length === 0) {
+        @if (!isLoading()) {
+            @if (filteredItems().length === 0) {
             <span class="dropdown-item-text text-secondary">No items</span>
-        }
-        @for(item of filteredItems(); track item) {
-            <button
-                class="btn btn-secondary dropdown-item"
-                type="button"
-                (click)="onItemClick(item)">
-                <div class="d-flex flex-column flex-sm-row">
-                    <span>
-                        {{ item.value }}
-                    </span>
-                    <span class="ms-sm-auto text-secondary small"> {{ item.subvalue }} </span>
+            }
+            @for(item of filteredItems(); track item) {
+                <button
+                    class="btn btn-secondary dropdown-item"
+                    type="button"
+                    (click)="onItemClick(item)">
+                    <div class="d-flex flex-column flex-sm-row">
+                        <span>
+                            {{ item.value }}
+                        </span>
+                        <span class="ms-sm-auto text-secondary small"> {{ item.subvalue }} </span>
+                    </div>
+                </button>
+            }
+        } @else {
+            <div class="flex-container justify-content-center align-items-center">
+                <div class="spinner-grow" role="status">
+                    <span class="invisible">Loading...</span>
                 </div>
-            </button>
+            </div>
         }
     </div>
 </div>

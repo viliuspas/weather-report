@@ -1,5 +1,5 @@
 import { inject, Injectable } from "@angular/core";
-import { BehaviorSubject, forkJoin, Observable } from "rxjs";
+import { BehaviorSubject, delay, forkJoin, Observable } from "rxjs";
 import { Place } from "../models/place";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { PlaceInfo } from "../models/placeInfo";
@@ -48,10 +48,12 @@ export class MeteoService {
 
     public setPlace(place: PlaceInfo | undefined): void {
         this.currentPlaceBehaviorSubject.next(place);
+        this.isCurrentPlaceLoadingBehaviorSubject.next(false);
     }
 
     public loadPlaces(): void {
         this.isPlacesLoadingBehaviorSubject.next(true);
+
         this.http
             .get<Place[]>(this.API_BASE_PATH + '/places')
             .subscribe({
@@ -68,6 +70,8 @@ export class MeteoService {
     }
 
     public loadPlace(placeCode: string): void {
+        this.isCurrentPlaceLoadingBehaviorSubject.next(true);
+
         this.http
             .get<PlaceInfo>(this.API_BASE_PATH + `/places/${placeCode}`)
             .subscribe({

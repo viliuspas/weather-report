@@ -3,7 +3,7 @@
         <app-main-heading />
     </div>
 
-    <div class="height-transition flex-container bg-dark" [class]="currentPlace() ? 'h-100' : 'h-0'">
+    <div class="height-transition flex-container bg-dark" [class]="currentPlace() || isCurrentPlaceLoading() ? 'h-100' : 'h-0'">
         <app-forecast class="h-100"/>
     </div>
     
