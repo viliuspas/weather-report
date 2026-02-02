@@ -6,7 +6,9 @@
                 (input)="onValueChange($event.target.value)"
                 placeholder="{{ placeholder() }}"/>
             <button type="button"
-                    class="btn btn-lg btn-secondary dropdown-toggle dropdown-toggle-split"
+                    class="btn btn-secondary dropdown-toggle dropdown-toggle-split"
+                    [class.btn-lg]="size() === 'large'"
+                    [class.btn-sm]="size() === 'small'"
                     (click)="toggleMenu()"
                     data-bs-toggle="dropdown"
                     [attr.aria-expanded]="isMenuOpen()">

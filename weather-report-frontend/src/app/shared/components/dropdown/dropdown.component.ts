@@ -17,6 +17,7 @@ export class DropdownComponent {
     searchable: InputSignal<boolean> = input.required<boolean>();
     items: InputSignal<DropdownItem[]> = input<DropdownItem[]>([]);
     placeholder: InputSignal<string> = input<string>('');
+    size: InputSignal<'small' | 'default' | 'large'> = input<'small' | 'default' | 'large'>('default');
     onClick: OutputEmitterRef<DropdownItem> = output<DropdownItem>();
 
     filteredItems = computed(() => [...this.items()]);
