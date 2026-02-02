@@ -2,3 +2,10 @@
     justify-content: center;
     height: 100%;
 }
+
+.height-transition {
+    height: 0;
+    transition-property: height;
+    transition-duration: 1s;
+    transition-timing-function: ease;
+}

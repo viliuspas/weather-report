@@ -3,11 +3,10 @@
         <app-main-heading />
     </div>
 
-    <div class="flex-container h-100 bg-dark" [class]="currentPlace() ? 'd-flex' : 'd-none'">
+    <div class="height-transition flex-container bg-dark" [class]="currentPlace() ? 'h-100' : 'h-0'">
         <app-forecast class="h-100"/>
     </div>
     
-
     <div class="content-container">
         <app-quick-access />
     </div>
