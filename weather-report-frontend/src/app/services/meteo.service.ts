@@ -1,5 +1,5 @@
 import { inject, Injectable } from "@angular/core";
-import { BehaviorSubject, Observable } from "rxjs";
+import { BehaviorSubject, forkJoin, Observable } from "rxjs";
 import { Place } from "../models/place";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { PlaceInfo } from "../models/placeInfo";
@@ -15,8 +15,11 @@ export class MeteoService {
     private placesBehaviorSubject: BehaviorSubject<Place[] | undefined> = new BehaviorSubject<Place[] | undefined>(undefined);
     private isPlacesLoadingBehaviorSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-    private placeBehaviorSubject: BehaviorSubject<PlaceInfo | undefined> = new BehaviorSubject<PlaceInfo | undefined>(undefined);
-    private isPlaceLoadingBehaviorSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+    private currentPlaceBehaviorSubject: BehaviorSubject<PlaceInfo | undefined> = new BehaviorSubject<PlaceInfo | undefined>(undefined);
+    private isCurrentPlaceLoadingBehaviorSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+    private topPlacesBehaviorSubject: BehaviorSubject<PlaceInfo[] | undefined> = new BehaviorSubject<PlaceInfo[] | undefined>(undefined);
+    private isTopPlacesLoadingBehaviorSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
     get places$(): Observable<Place[] | undefined> {
         return this.placesBehaviorSubject.asObservable();
@@ -26,16 +29,24 @@ export class MeteoService {
         return this.isPlacesLoadingBehaviorSubject.asObservable();
     }
 
-    get place$(): Observable<PlaceInfo | undefined> {
-        return this.placeBehaviorSubject.asObservable();
+    get currentPlace$(): Observable<PlaceInfo | undefined> {
+        return this.currentPlaceBehaviorSubject.asObservable();
     }
 
-    get isPlaceLoading$(): Observable<boolean> {
-        return this.isPlaceLoadingBehaviorSubject.asObservable();
+    get isCurrentPlaceLoading$(): Observable<boolean> {
+        return this.isCurrentPlaceLoadingBehaviorSubject.asObservable();
+    }
+
+    get topPlace$(): Observable<PlaceInfo[] | undefined> {
+        return this.topPlacesBehaviorSubject.asObservable();
+    }
+
+    get isTopPlaceLoading$(): Observable<boolean> {
+        return this.isTopPlacesLoadingBehaviorSubject.asObservable();
     }
 
     public setPlace(place: PlaceInfo | undefined): void {
-        this.placeBehaviorSubject.next(place);
+        this.currentPlaceBehaviorSubject.next(place);
     }
 
     public loadPlaces(): void {
@@ -60,14 +71,47 @@ export class MeteoService {
             .get<PlaceInfo>(this.API_BASE_PATH + `/places/${placeCode}`)
             .subscribe({
                 next: (place: PlaceInfo) => {
-                    this.placeBehaviorSubject.next(place);
+                    this.currentPlaceBehaviorSubject.next(place);
                 },
                 error: (err: HttpErrorResponse) => {
                     console.log(`Error getting place: ${err.error}, ${err.message}`);
                 },
                 complete: () => {
-                    this.isPlaceLoadingBehaviorSubject.next(false);
+                    this.isCurrentPlaceLoadingBehaviorSubject.next(false);
                 }
             });
+    }
+
+    public loadTopPlaces(placeCodes: string[]): void {
+        this.isTopPlacesLoadingBehaviorSubject.next(true);
+
+        const loadedCodes: Set<string> = new Set(
+            this.topPlacesBehaviorSubject.value?.map(p => p.place.code) ?? []
+        );
+
+        const codesToLoad: string[] = placeCodes.filter(code => !loadedCodes.has(code));
+
+        forkJoin(codesToLoad.map(code =>
+            this.http.get<PlaceInfo>(this.API_BASE_PATH + `/places/${code}`)
+        )).subscribe({
+            next: (places: PlaceInfo[]) => {
+                this.topPlacesBehaviorSubject.next([
+                    ...this.filterLoadedTopPlaces(placeCodes),
+                    ...places
+                ]);
+            },
+            error: (err: HttpErrorResponse) => {
+                console.log(`Error getting places: ${err.error}, ${err.message}`);
+            },
+            complete: () => {
+                this.isTopPlacesLoadingBehaviorSubject.next(false);
+            }
+        });
+    }
+
+    private filterLoadedTopPlaces(containsCodes: string[]): PlaceInfo[] {
+        return this.topPlacesBehaviorSubject.value?.filter(
+            p => containsCodes.includes(p.place.code)
+        ) ?? [];
     }
 }

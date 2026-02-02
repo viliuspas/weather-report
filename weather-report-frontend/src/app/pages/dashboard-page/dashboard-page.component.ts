@@ -16,6 +16,6 @@ import { PlaceInfo } from '../../models/placeInfo';
 export class DashboardPage {
     private readonly meteoService: MeteoService = inject(MeteoService);
 
-    currentPlace: Signal<PlaceInfo | undefined> = toSignal(this.meteoService.place$, { initialValue: undefined });
-    isCurrentPlaceLoading: Signal<boolean> = toSignal(this.meteoService.isPlaceLoading$, { initialValue: false });
+    currentPlace: Signal<PlaceInfo | undefined> = toSignal(this.meteoService.currentPlace$, { initialValue: undefined });
+    isCurrentPlaceLoading: Signal<boolean> = toSignal(this.meteoService.isCurrentPlaceLoading$, { initialValue: false });
 }
