@@ -1,4 +1,4 @@
-<div class="dropdown">
+<div class="dropdown" clickOutside (clickOutside)="clickedOutside()">
     @if (searchable()) {
         <div class="btn-group">
             <input
@@ -33,7 +33,7 @@
             @if (filteredItems().length === 0) {
             <span class="dropdown-item-text text-secondary">No items</span>
             }
-            @for(item of filteredItems(); track item) {
+            @for(item of filteredItems(); track item.id) {
                 <button
                     class="btn btn-secondary dropdown-item"
                     type="button"

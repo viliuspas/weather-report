@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, computed, input, InputSignal, OnInit, output, OutputEmitterRef, signal, WritableSignal } from "@angular/core";
+import { ChangeDetectionStrategy, Component, computed, input, InputSignal, output, OutputEmitterRef, signal, WritableSignal } from "@angular/core";
+import { clickOutsideDirective } from "../../directives/click-outside.directive";
 
 export interface DropdownItem {
     id: string;
@@ -8,7 +9,7 @@ export interface DropdownItem {
 
 @Component({
     selector: 'app-dropdown',
-    imports: [],
+    imports: [clickOutsideDirective],
     templateUrl: './dropdown.component.html',
     styleUrl: './dropdown.component.scss',
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -46,5 +47,10 @@ export class DropdownComponent {
     onItemClick(value: DropdownItem) {
         this.onClick.emit(value);
         this.toggleMenu();
+    }
+
+    clickedOutside(): void {
+        console.log('outside')
+        this.isMenuOpen.set(false);
     }
 }
