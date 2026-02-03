@@ -11,7 +11,7 @@
             </div>
         </button>
     }
-    @if (isQuickAccessPlacesLoading()) {
+    @if (isQuickAccessPlacesLoading() && !quickAccessPlaces()) {
         @for (i of [0, 1, 2]; track i) {
             <div class="card d-flex flex-row">
                 <div class="p-1 flex-container text-start gap-2 flex-fill">
