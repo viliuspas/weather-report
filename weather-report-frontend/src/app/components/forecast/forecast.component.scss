@@ -1,8 +1,6 @@
 .heading-container {
     display: inline-flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 1.5rem;
+    flex-direction: column;
     padding: 1rem;
     width: fit-content;
 }
