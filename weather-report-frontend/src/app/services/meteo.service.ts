@@ -57,15 +57,15 @@ export class MeteoService {
 
         this.http
             .get<Place[]>(this.API_BASE_PATH + '/places')
+            .pipe(finalize(() => {
+                this.isPlacesLoadingBehaviorSubject.next(false);
+            }))
             .subscribe({
                 next: (places: Place[]) => {
                     this.placesBehaviorSubject.next(places);
                 },
                 error: (err: HttpErrorResponse) => {
                     console.log(`Error getting places: ${err.error}, ${err.message}`);
-                },
-                complete: () => {
-                    this.isPlacesLoadingBehaviorSubject.next(false);
                 }
             });
     }
@@ -75,15 +75,15 @@ export class MeteoService {
 
         this.http
             .get<PlaceInfo>(this.API_BASE_PATH + `/places/${placeCode}`)
+            .pipe(finalize(() => {
+                this.isCurrentPlaceLoadingBehaviorSubject.next(false);
+            }))
             .subscribe({
                 next: (place: PlaceInfo) => {
                     this.currentPlaceBehaviorSubject.next(place);
                 },
                 error: (err: HttpErrorResponse) => {
                     console.log(`Error getting place: ${err.error}, ${err.message}`);
-                },
-                complete: () => {
-                    this.isCurrentPlaceLoadingBehaviorSubject.next(false);
                 }
             });
     }
@@ -104,8 +104,7 @@ export class MeteoService {
                     console.log(`Error getting places: ${err.error}, ${err.message}`);
                     return EMPTY;
                 }))
-        )).pipe(delay(2000),
-            finalize(() => {
+        )).pipe(finalize(() => {
             this.isTopPlacesLoadingBehaviorSubject.next(false);
         }))
         .subscribe({
