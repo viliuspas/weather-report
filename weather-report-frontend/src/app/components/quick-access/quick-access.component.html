@@ -1,6 +1,6 @@
 <div class="d-flex flex-column flex-sm-row text-center cards-container">
     @for (place of quickAccessPlaces(); track place) {
-        <button class="btn btn-secondary card d-flex flex-row gap-2" (click)="handleQuickAccessClick(place)">
+        <button class="opacity-transition btn btn-secondary card d-flex flex-row gap-2" (click)="handleQuickAccessClick(place)">
             <div class="flex-container text-start">
                 <span>{{ place.place.name }}</span>
                 <span class="small text-secondary">{{ place.place.administrativeDivision }}</span>
@@ -10,5 +10,19 @@
                 <app-icon [type]="conditionCodeToIconType(place.forecastTimestamps[0].conditionCode)" />
             </div>
         </button>
+    }
+    @if (isQuickAccessPlacesLoading()) {
+        @for (i of [0, 1, 2]; track i) {
+            <div class="card d-flex flex-row">
+                <div class="p-1 flex-container text-start gap-2 flex-fill">
+                    <div class="w-25 skeleton skeleton-text"></div>
+                    <div class="w-100 skeleton skeleton-text small"></div>
+                </div>
+                <div class="ms-auto flex-container align-items-end gap-1 flex-fill">
+                    <div class="w-25 skeleton skeleton-text"></div>
+                    <div class="skeleton skeleton-circle"></div>
+                </div>
+            </div>
+        }
     }
 </div>

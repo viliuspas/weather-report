@@ -1,5 +1,5 @@
 import { inject, Injectable } from "@angular/core";
-import { BehaviorSubject, delay, forkJoin, Observable } from "rxjs";
+import { BehaviorSubject, catchError, delay, EMPTY, finalize, forkJoin, Observable } from "rxjs";
 import { Place } from "../models/place";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { PlaceInfo } from "../models/placeInfo";
@@ -98,19 +98,22 @@ export class MeteoService {
         const codesToLoad: string[] = placeCodes.filter(code => !loadedCodes.has(code));
 
         forkJoin(codesToLoad.map(code =>
-            this.http.get<PlaceInfo>(this.API_BASE_PATH + `/places/${code}`)
-        )).subscribe({
+            this.http
+                .get<PlaceInfo>(this.API_BASE_PATH + `/places/${code}`)
+                .pipe(catchError(err => {
+                    console.log(`Error getting places: ${err.error}, ${err.message}`);
+                    return EMPTY;
+                }))
+        )).pipe(delay(2000),
+            finalize(() => {
+            this.isTopPlacesLoadingBehaviorSubject.next(false);
+        }))
+        .subscribe({
             next: (places: PlaceInfo[]) => {
                 this.topPlacesBehaviorSubject.next([
                     ...this.filterLoadedTopPlaces(placeCodes),
                     ...places
                 ]);
-            },
-            error: (err: HttpErrorResponse) => {
-                console.log(`Error getting places: ${err.error}, ${err.message}`);
-            },
-            complete: () => {
-                this.isTopPlacesLoadingBehaviorSubject.next(false);
             }
         });
     }
