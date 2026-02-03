@@ -4,6 +4,7 @@ import { Place } from "../models/place";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { PlaceInfo } from "../models/placeInfo";
 import { IconType } from "../shared/components/icon/icon.component";
+import { environment } from "../../environments/environment";
 
 @Injectable({
     providedIn: 'root'
@@ -11,7 +12,7 @@ import { IconType } from "../shared/components/icon/icon.component";
 export class MeteoService {
     private http: HttpClient = inject(HttpClient);
 
-    private readonly API_BASE_PATH: string = 'http://localhost:3000';
+    private readonly API_BASE_PATH: string = environment.apiUrl;
 
     private placesBehaviorSubject: BehaviorSubject<Place[] | undefined> = new BehaviorSubject<Place[] | undefined>(undefined);
     private isPlacesLoadingBehaviorSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
