@@ -1,13 +1,17 @@
+@let isForecastVisible = currentPlace() || isCurrentPlaceLoading();
+
 <div class="flex-container main-container">
     <div class="content-container text-center">
         <app-main-heading />
     </div>
-
-    <div class="height-transition flex-container bg-dark" [class]="currentPlace() || isCurrentPlaceLoading() ? 'h-100' : 'h-0'">
+    <hr class="m-0" [class.d-none]="!isForecastVisible"/>
+    <div class="height-transition flex-container bg-dark" 
+        [class.h-100]="isForecastVisible">
         <app-forecast class="h-100"/>
     </div>
     
-    <div class="content-container" [class]="currentPlace() ? 'overflow-y-scroll-sm' : ''">
+    <hr class="m-0" [class.d-none]="!isForecastVisible"/>
+    <div class="content-container">
         <app-quick-access />
     </div>
 </div>

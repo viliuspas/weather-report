@@ -1,13 +1,17 @@
 .main-container {
     justify-content: center;
-    height: 100%;
+    min-height: 100vh;
 }
 
 .height-transition {
-    height: 0;
-    transition-property: height;
-    transition-duration: 1s;
-    transition-timing-function: ease;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 1s ease;
+}
+
+.height-transition.h-100 {
+    max-height: 100vh;
+    flex-grow: 1;
 }
 
 @media (prefers-reduced-motion: reduce) {
