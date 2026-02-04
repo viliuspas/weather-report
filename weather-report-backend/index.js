@@ -13,6 +13,15 @@ app.listen(3000, () => {
 
 const METEO_API_BASE_PATH = 'https://api.meteo.lt/v1';
 
+app.get('/', async (req, res) => {
+    try {
+        res.json('weather-report-backend is running');
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to fetch'});
+    }
+});
+
+
 app.get('/places', async (req, res) => {
     try {
         const response = await fetch(METEO_API_BASE_PATH + '/places');
@@ -43,4 +52,4 @@ app.post('/places/viewed', async (req, res) => {
     } catch (error) {
         res.status(500).json({ error: 'Failed to post viewed place'});
     }
-})
+});
