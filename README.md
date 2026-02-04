@@ -24,10 +24,10 @@ Forecast information:
 
 | Desktop view | Mobile view |
 |-|-|
-|![alt text](public\images\main-1.png)|![alt text](public\images\main-2.png)|
-|![alt text](public\images\forecast-1.png)|![alt text](public\images\forecast-2.png)|
-|![alt text](public\images\dropdown-1.png)|![alt text](public\images\dropdown-2.png)|
-|![alt text](public\images\menu-loading-1.png)|![alt text](public\images\menu-loading-2.png)|
+|![Desktop main page](public/images/main-1.png)|![Mobile main page](public/images/main-2.png)|
+|![Desktop forecast page](public/images/forecast-1.png)|![Mobile forecast page](public/images/forecast-2.png)|
+|![Desktop dropdown design](public/images/dropdown-1.png)|![Mobile dropdown design](public/images/dropdown-2.png)|
+|![Quick Access card desktop loading state](public/images/menu-loading-1.png)|![Quick Access card mobile loading state](public/images/menu-loading-2.png)|
 
 ## Technical documentation
 
